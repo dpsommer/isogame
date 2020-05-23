@@ -8,7 +8,7 @@ Config.then((conf) => {
 });
 
 export default class Tile {
-  
+
   constructor(top, scale) {
     this.intersects = [
       top,
@@ -26,21 +26,21 @@ export default class Tile {
       )
     ];
   }
-  
+
   static get WIDTH() {
-    return config.tileUnitSize * config.tileScale.w;
+    return config.tileUnitSize * config.tileScale.width;
   }
-  
+
   static get WIDTH_HALF() {
     return Tile.WIDTH / 2;
   }
-  
+
   static get HEIGHT() {
-    return config.tileUnitSize * config.tileScale.h;
+    return config.tileUnitSize * config.tileScale.height;
   }
-  
+
   static get HEIGHT_HALF() {
     return Tile.HEIGHT / 2;
   }
-  
+
 }

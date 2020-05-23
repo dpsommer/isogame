@@ -87,7 +87,7 @@ export class Game extends Scene {
       if (!spriteLayer.selected) {
         // FIXME: testing purposes only
         let testItem = gameitems[0];
-        spriteLayer.addSprite(testItem.width, testItem.height, spriteLayer.selectedTile, PATHS.img + testItem.img);
+        spriteLayer.addSprite(testItem.width, testItem.height, PATHS.img + testItem.img);
       }
       spriteLayer.update = true;
       spriteLayer.deselect();

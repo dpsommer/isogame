@@ -49,7 +49,6 @@ export class SpriteLayer extends Layer {
   }
 
   getSpriteOrigin(t) {
-    // TODO: can this function be moved or rewritten?
     let tile = t || this.selectedTile;
     let p = tile.intersects[0];
     return new Point(
@@ -58,9 +57,9 @@ export class SpriteLayer extends Layer {
     );
   }
 
-  addSprite(w, h, tile, image) {
-    let sprite = new Sprite(w, h, image);
-    this.tileSpriteMap.set(this.selectedTile, sprite);
+  addSprite(width, height, image, tile) {
+    let sprite = new Sprite(width, height, image);
+    this.tileSpriteMap.set(tile || this.selectedTile, sprite);
     sprite.onload = () => { this.update = true; }
   }
 
@@ -90,34 +89,33 @@ export class SpriteLayer extends Layer {
     return this.tileSpriteMap.has(this.selectedTile);
   }
 
-  tintSprite(s, o, c) {
-    let imgData = this.ctx.getImageData(o.x, o.y, s.width, s.height);
+  tintSprite(sprite, origin, colour) {
+    let imgData = this.ctx.getImageData(origin.x, origin.y, sprite.width, sprite.height);
     for (var i = 0; i < imgData.data.length; i += 4) {
       if (imgData.data[i + 3] != 0) {
-        imgData.data[i] = Math.max(c[0], imgData.data[i]);
-        imgData.data[i + 1] = Math.max(c[1], imgData.data[i + 1]);
-        imgData.data[i + 2] = Math.max(c[2], imgData.data[i + 2]);
+        imgData.data[i] = Math.max(colour[0], imgData.data[i]);
+        imgData.data[i + 1] = Math.max(colour[1], imgData.data[i + 1]);
+        imgData.data[i + 2] = Math.max(colour[2], imgData.data[i + 2]);
       }
     }
-    this.ctx.putImageData(imgData, o.x, o.y);
+    this.ctx.putImageData(imgData, origin.x, origin.y);
   }
 
   draw() {
     // TODO: draw sprites in z-index order
     if (this.update) {
       this.clear();
-      // TODO: implement nicer selection graphic
       this.drawPolygon(this.selectedTile.intersects);
       for (var [tile, sprite] of this.tileSpriteMap) {
-        let o = this.getSpriteOrigin(tile);
-        this.ctx.drawImage(sprite, o.x, o.y);
+        let origin = this.getSpriteOrigin(tile);
+        this.ctx.drawImage(sprite, origin.x, origin.y);
       }
       if (this.selected) {
         this.ctx.globalAlpha = 0.5;
         let colliding = this.colliding();
-        let o = this.getSpriteOrigin();
-        this.ctx.drawImage(this.selected, o.x, o.y);
-        if (colliding) this.tintSprite(this.selected, o, [200, 0, 0]);
+        let origin = this.getSpriteOrigin();
+        this.ctx.drawImage(this.selected, origin.x, origin.y);
+        if (colliding) this.tintSprite(this.selected, origin, [200, 0, 0]);
         this.ctx.globalAlpha = 1;
       }
       this.ctx.lineWidth = 1;

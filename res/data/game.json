@@ -2,7 +2,7 @@
   "config": {
     "tileUnitSize": 128,
     "tileScale": {
-      "w": 1, "h": "0.5"
+      "width": 1, "height": "0.5"
     },
     "gridX": 5,
     "gridY": 5,
