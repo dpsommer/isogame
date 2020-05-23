@@ -1,0 +1,17 @@
+:root {
+	--canvas-width: 840px;
+	--canvas-height: 360px;
+}		
+body {
+	margin:0;
+	background: #eee;
+}
+canvas {
+	position: absolute;
+	top: 0;
+	left: 0;
+	background: transparent;
+}
+#background {
+  background-color: #222;
+}

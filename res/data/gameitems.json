@@ -1,0 +1,9 @@
+{
+  "0": {
+    "name": "Simple Box",
+    "width": 64,
+    "height": 64,
+    "img": "wood_box.png",
+    "mask": null
+  }
+}
